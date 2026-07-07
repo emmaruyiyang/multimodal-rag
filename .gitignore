@@ -1,0 +1,32 @@
+# Environment
+.env
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Conda / virtualenv
+.conda/
+venv/
+env/
+
+# Data — processed outputs and raw PDFs (keep only samples if needed)
+data/processed/
+data/qdrant/
+data/*.pdf
+
+# Qdrant local storage
+qdrant_storage/
+storage/
+snapshots/
+qdrant
+qdrant.tar.gz
+
+# macOS
+.DS_Store
