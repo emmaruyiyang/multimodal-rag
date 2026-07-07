@@ -29,5 +29,8 @@ qdrant.tar.gz
 # External dependencies (install manually: pip install -e "adaptive-chunking[parsing]")
 adaptive-chunking/
 
+# Reference papers
+reference/
+
 # macOS
 .DS_Store
