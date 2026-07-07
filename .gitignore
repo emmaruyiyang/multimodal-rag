@@ -17,9 +17,7 @@ venv/
 env/
 
 # Data — processed outputs and raw PDFs (keep only samples if needed)
-data/processed/
-data/qdrant/
-data/*.pdf
+data/
 
 # Qdrant local storage
 qdrant_storage/
@@ -27,6 +25,9 @@ storage/
 snapshots/
 qdrant
 qdrant.tar.gz
+
+# External dependencies (install manually: pip install -e "adaptive-chunking[parsing]")
+adaptive-chunking/
 
 # macOS
 .DS_Store
