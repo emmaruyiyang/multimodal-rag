@@ -35,15 +35,20 @@ docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
 ```
 Dashboard: `http://localhost:6333/dashboard`
 
-**2. Index a document**
-```python
-from src.pipeline import index_document
-index_document("data/my_paper.pdf")
+**2. Start the web app**
+```bash
+conda activate multimodal-rag
+uvicorn api.main:app --reload
 ```
+Open `http://localhost:8000` — upload a PDF, wait for indexing, then ask questions.
 
-**3. Query**
+> PDF viewer requires an Adobe PDF Embed API Client ID — register at developer.adobe.com and set it in `frontend/app.js`. Add `localhost` as the allowed domain.
+
+**3. Or use the Python API directly**
 ```python
-from src.pipeline import query
+from src.pipeline import index_document, query
+
+index_document("data/my_paper.pdf")
 result = query("What are the security features?", doc_name="my_paper")
 print(result["answer"])
 ```
@@ -60,18 +65,6 @@ cp .env.example .env  # add ANTHROPIC_API_KEY and OPENAI_API_KEY
 
 ## Usage
 
-```python
-from src.pipeline import index_document, query
-
-# Offline: parse + embed + index (run once per document)
-index_document("data/my_paper.pdf")
-
-# Online: retrieve + generate
-result = query("What are the main findings?", doc_name="my_paper")
-print(result["answer"])
-for s in result["sources"]:
-    print(f"  page {s['pages']} [{s['type']}] score={s['score']}")
-```
 
 ## Swap image strategy
 

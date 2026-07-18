@@ -212,16 +212,29 @@ def extract_figures_with_docling(
         img_path = output_dir / f"{pdf_path.stem}_p{page_no}_fig{fig_idx}.{ext}"
         img_path.write_bytes(image_bytes)
 
+        # Extract caption text from Docling PictureItem
+        caption_text = ""
+        if hasattr(item, "captions"):
+            for cap_ref in item.captions:
+                try:
+                    cap_item = dl_doc.get_ref(cap_ref).resolve(dl_doc)
+                    if hasattr(cap_item, "text") and cap_item.text:
+                        caption_text += cap_item.text.strip() + " "
+                except Exception:
+                    pass
+        caption_text = caption_text.strip()
+
         description = strategy.describe(image_bytes)
         fig_idx += 1
 
-        if not description.strip():
+        chunk_text = "\n\n".join(filter(None, [caption_text, description]))
+        if not chunk_text.strip():
             continue
 
         chunks.append({
             "doc_name": doc_name,
             "chunk_index": chunk_index_start + fig_idx,
-            "chunk_text": description,
+            "chunk_text": chunk_text,
             "chunk_pages": [page_no],
             "titles_context": "",
             "chunk_len": len(description.split()),

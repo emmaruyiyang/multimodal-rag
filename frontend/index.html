@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimodal RAG</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Adobe PDF Embed API — register at developer.adobe.com for a Client ID -->
+  <script src="https://acrobatservices.adobe.com/view-sdk/viewer.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <span class="logo">Multimodal RAG</span>
+      <div id="doc-controls">
+        <select id="doc-select"><option value="">Select document…</option></select>
+        <label class="btn-upload">
+          Upload &amp; Index PDF
+          <input type="file" id="pdf-upload" accept=".pdf" hidden>
+        </label>
+        <span id="index-status"></span>
+      </div>
+    </header>
+
+    <main>
+      <div id="pdf-panel">
+        <div id="pdf-viewer"></div>
+        <div id="pdf-empty">Upload or select a document</div>
+      </div>
+
+      <div id="chat-panel">
+        <div id="messages"></div>
+        <div id="input-row">
+          <textarea id="q-input" placeholder="Ask a question… (Enter to send)" rows="3"></textarea>
+          <button id="ask-btn">Ask</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

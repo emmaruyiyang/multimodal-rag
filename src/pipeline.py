@@ -150,7 +150,16 @@ def query(
                 "pages": c.get("chunk_pages", []),
                 "score": round(c.get("score", 0), 3),
                 "preview": c["chunk_text"][:150] + "…" if len(c["chunk_text"]) > 150 else c["chunk_text"],
+                # snippet of verbatim PDF text for in-viewer search/highlight;
+                # figures carry a vision description (not in the PDF) so no snippet
+                "snippet": _search_snippet(c["chunk_text"]) if c.get("type") != "figure" else "",
             }
             for c in chunks
         ],
     }
+
+
+def _search_snippet(text: str, max_words: int = 8) -> str:
+    """Take the first few words of a chunk as a phrase to locate in the PDF viewer."""
+    words = text.strip().split()
+    return " ".join(words[:max_words])
